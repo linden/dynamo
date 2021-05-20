@@ -77,20 +77,20 @@ func (file *File) Compile() (string, error) {
 	}
 
 	for name, method := range file.methods {
-		plain = plain + "func (" + method.Receiver + " " + method.Struct + ") " + name + "(" + joinParameters(method.Func.Arguments, ", ") + ") "
+		plain = plain + "func (" + method.Receiver + " " + method.Struct + ") " + name + "(" + joinParameters(method.Func.Arguments) + ") "
 
 		if len(method.Func.Outputs) > 0 {
-			plain = plain + " (" + joinParameters(method.Func.Outputs, ", ") + ")"
+			plain = plain + " (" + joinParameters(method.Func.Outputs) + ")"
 		}
 
 		plain = plain + " {\n" + method.Func.Body + "\n}\n\n"
 	}
 
 	for name, function := range file.funcs {
-		plain = plain + "func " + name + "(" + joinParameters(function.Arguments, " ") + ")"
+		plain = plain + "func " + name + "(" + joinParameters(function.Arguments) + ")"
 
 		if len(function.Outputs) > 0 {
-			plain = plain + " (" + joinParameters(function.Outputs, ", ") + ")"
+			plain = plain + " (" + joinParameters(function.Outputs) + ")"
 		}
 
 		plain = plain + " {\n" + function.Body + "\n}\n\n"
@@ -101,14 +101,14 @@ func (file *File) Compile() (string, error) {
 	return string(formatted), err
 }
 
-func joinParameters(parameters []Parameter, delimiter string) string {
+func joinParameters(parameters []Parameter) string {
 	var plain string
 
 	for index, parameter := range parameters {
 		plain = plain + parameter.Name + " " + parameter.Type
 
 		if index != len(parameters)-1 {
-			plain = plain + delimiter
+			plain = plain + ", "
 		}
 	}
 
