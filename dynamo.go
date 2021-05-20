@@ -70,7 +70,7 @@ func (file *File) Compile() (string, error) {
 		plain = plain + "type " + name + " struct {\n"
 
 		for feildName, feildBody := range body {
-			plain = plain + space + feildName + " " + feildBody.Type + "\n"
+			plain = plain + space + feildName + " " + feildBody.Type + " " + feildBody.Note + "\n"
 		}
 
 		plain = plain + "}\n\n"
