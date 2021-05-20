@@ -77,7 +77,7 @@ func (file *File) Compile() (string, error) {
 	}
 
 	for name, method := range file.methods {
-		plain = plain + "func (" + method.Receiver + " " + method.Struct + ") " + name + "(" + joinParameters(method.Func.Arguments, " ") + ") "
+		plain = plain + "func (" + method.Receiver + " " + method.Struct + ") " + name + "(" + joinParameters(method.Func.Arguments, ", ") + ") "
 
 		if len(method.Func.Outputs) > 0 {
 			plain = plain + " (" + joinParameters(method.Func.Outputs, ", ") + ")"
